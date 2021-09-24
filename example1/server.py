@@ -2,7 +2,7 @@ import socket
 import time
 import json
 
-jsonData = {"id": 2, "name": "abc"}
+jsonData = {"id": time.time(), "name": "abc"}
 
 HEADERSIZE = 10
 
@@ -22,10 +22,10 @@ while True:
 
     while True:
         time.sleep(1)
-        msg = f"The time is {time.time()}"
-        msg = f"{len(msg):<{HEADERSIZE}}"+msg
+        #msg = f"The time is {time.time()}"
+        msg = f"{len(jsonData):<{HEADERSIZE}}"+jsonData
 
         # print(msg)
 
-        clientsocket.send(bytes(msg, "utf-8"))
+        clientsocket.send(bytes(str(msg), "utf-8"))
         # clientsocket.send(jsonData)

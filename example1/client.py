@@ -3,8 +3,10 @@ import socket
 HEADERSIZE = 10
 
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+#s.connect(('127.0.0.1', 3333))
 s.connect(('127.0.0.1', 3333))
-#s.sendall(bytes('hello world', "utf-8"))
+data = "hello world"
+s.sendall(data.encode())
 
 while True:
     full_msg = ''
@@ -24,6 +26,6 @@ while True:
 
         if len(full_msg)-HEADERSIZE == msglen:
             #print("full msg recvd")
-            print(full_msg[HEADERSIZE:])
+            print(type(full_msg[HEADERSIZE:]))
             new_msg = True
             full_msg = ""
