@@ -6,7 +6,7 @@ import json
 import socket
 
 serverAddressPort = ("127.0.0.1", 20001)
-bufferSize = 1024
+bufferSize = 1024  # receive data size
 
 # Create a UDP socket at client side
 UDPClientSocket = socket.socket(family=socket.AF_INET, type=socket.SOCK_DGRAM)
@@ -24,8 +24,9 @@ def UDPClientRecv():
         print('UPD Server No Response')
 
 
-def UDPClientSend(objMsgUDPSend):  # send receive(base station) data to UPD server
+def UDPClientSend(objMsgUDPSend):
     bytesToSend = str.encode(str(objMsgUDPSend))
+    # send data to UPD server
     UDPClientSocket.sendto(bytesToSend, serverAddressPort)
     print(f'Message Send UDP Server: {objMsgUDPSend}')
     UDPClientRecv()
@@ -53,12 +54,11 @@ def on_close(ws, close_status_code, close_msg):
 
 def on_open(ws):
     print('Websocket Connect')
-    # time.sleep(3)
     ws.send('{"message": "register", "register":"non_ip_data"}')
 
 
 if __name__ == "__main__":
-    websocket.enableTrace(True)
+    websocket.enableTrace(True)  # Debug and Logging Options
     ws = websocket.WebSocketApp("ws://192.168.5.146:9000/",
                                 on_open=on_open,
                                 on_message=on_message,
